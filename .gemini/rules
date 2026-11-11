@@ -1,0 +1,8 @@
+# Antigravity Rules — GST-SOFTWARE Official Starter Next.js
+
+1. TypeScript strict mode must be preserved at all times (`"strict": true`). No `any` types allowed.
+2. Architecture: Domain-driven modular structure inside `src/modules/`.
+3. Validations: Zod schemas for form inputs and external data.
+4. Database: Supabase client in `src/lib/supabase/`. All database queries must enforce Row Level Security (RLS).
+5. Styling: Tailwind CSS and Lucide React icons exclusively.
+6. Error Handling: All async operations must handle errors and provide user feedback.

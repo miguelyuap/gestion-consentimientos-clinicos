@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: gst-consentimientos-clinicos
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        value: https://ldsmcmehtdkesgvwtyqq.supabase.co
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        value: sb_publishable_9sX9NfwDmHQt95kx-bjAlQ_cLn67LFa

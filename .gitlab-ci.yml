@@ -1,0 +1,52 @@
+image: node:20-alpine
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .next/cache/
+    - node_modules/
+
+stages:
+  - validate
+  - test
+  - build
+  - deploy
+
+lint_and_typecheck:
+  stage: validate
+  script:
+    - npm ci
+    - npm run lint
+    - npm run typecheck
+
+unit_tests:
+  stage: test
+  script:
+    - npm ci
+    - npm run test
+
+build_project:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  only:
+    - develop
+    - main
+
+deploy_staging:
+  stage: deploy
+  script:
+    - echo "Desplegando en Render Staging via Hook"
+    - curl -X POST "$RENDER_STAGING_DEPLOY_HOOK"
+  only:
+    - develop
+
+deploy_production:
+  stage: deploy
+  script:
+    - echo "Desplegando en Render Production via Hook"
+    - curl -X POST "$RENDER_PROD_DEPLOY_HOOK"
+  only:
+    - main
+  when: manual
