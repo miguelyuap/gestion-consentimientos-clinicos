@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual de Usuario Interactivo — Consentimientos Clínicos y Pertenencias (FOR-ENF-HC-014)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --blue-600: #2563eb;
+      --blue-50: #eff6ff;
+      --emerald-600: #059669;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-50: #fffbeb;
+      --red-600: #dc2626;
+      --red-50: #fef2f2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--slate-900);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--slate-900);
+      color: #fff;
+      padding: 1.25rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid #334155;
+    }
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.18);
+      color: #7dd3fc;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .container {
+      max-width: 1120px;
+      margin: 1.5rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid var(--slate-200);
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tab-btn {
+      border: 1px solid var(--slate-200);
+      background: #f1f5f9;
+      color: var(--slate-700);
+      padding: 0.55rem 0.95rem;
+      border-radius: 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover { background: #e2e8f0; }
+    .tab-btn.active {
+      background: var(--blue-600);
+      color: #fff;
+      border-color: var(--blue-600);
+    }
+    .search-input {
+      padding: 0.55rem 0.9rem;
+      border-radius: 0.75rem;
+      border: 1px solid #cbd5e1;
+      font-size: 0.85rem;
+      min-width: 240px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--slate-200);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    .card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .role-box {
+      border: 1px solid var(--slate-200);
+      border-radius: 0.85rem;
+      padding: 1rem;
+      background: #f8fafc;
+    }
+    .role-box h3 { font-size: 0.95rem; margin-bottom: 0.35rem; }
+    .cred-pill {
+      display: inline-block;
+      background: var(--slate-900);
+      color: #fff;
+      font-family: monospace;
+      font-size: 0.78rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 0.4rem;
+      margin: 0.25rem 0.25rem 0.5rem 0;
+    }
+    .step-list {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.75rem;
+    }
+    .step-item {
+      border-left: 4px solid var(--blue-600);
+      background: var(--blue-50);
+      padding: 0.9rem 1rem;
+      border-radius: 0 0.75rem 0.75rem 0;
+    }
+    .step-item strong { color: #1d4ed8; }
+    .alert {
+      padding: 0.95rem 1.1rem;
+      border-radius: 0.85rem;
+      font-size: 0.88rem;
+      margin-top: 0.85rem;
+    }
+    .alert-amber { background: var(--amber-50); border: 1px solid #fde68a; color: #92400e; }
+    .alert-emerald { background: var(--emerald-50); border: 1px solid #a7f3d0; color: #065f46; }
+    .alert-red { background: var(--red-50); border: 1px solid #fecaca; color: #991b1b; }
+    .btn-action {
+      background: var(--blue-600);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 0.95rem;
+      border-radius: 0.65rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 1px solid #475569;
+      padding: 0.45rem 0.85rem;
+      border-radius: 0.65rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .hidden { display: none !important; }
+    @media print {
+      header, .toolbar { display: none !important; }
+      .card { display: block !important; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div>
+        <span class="badge">Formato Oficial FOR-ENF-HC-014 • Versión 04</span>
+        <h1 style="font-size: 1.25rem; margin-top: 0.25rem;">Manual Interactivo de Usuario — Consentimientos Informados y Pertenencias</h1>
+        <p style="font-size: 0.8rem; color: #cbd5e1;">Resolución 1995 de 1999 • Ley 1581 de 2012 (Habeas Data) • Ley 527 de 1999 (Firma Electrónica SHA-256)</p>
+      </div>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="btn-action" onclick="window.print()">Imprimir / Guardar Manual PDF</button>
+        <a class="btn-outline" href="/">Volver al Aplicativo</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="toolbar">
+      <div class="tabs" id="tabContainer">
+        <button class="tab-btn active" onclick="filterSection('ALL', this)">Todo el Manual</button>
+        <button class="tab-btn" onclick="filterSection('ROLES', this)">1. Usuarios y Roles</button>
+        <button class="tab-btn" onclick="filterSection('FLUJO', this)">2. Diligenciar Formato</button>
+        <button class="tab-btn" onclick="filterSection('PERTENENCIAS', this)">3. Pertenencias y Devolución</button>
+        <button class="tab-btn" onclick="filterSection('HISTORIAL', this)">4. Búsqueda, PDF y Anulación</button>
+        <button class="tab-btn" onclick="filterSection('OFFLINE', this)">5. Modo Offline y Supabase</button>
+      </div>
+      <input
+        type="search"
+        id="searchInput"
+        class="search-input"
+        placeholder="Filtrar tema o palabra clave..."
+        oninput="searchManual(this.value)"
+      />
+    </div>
+
+    <!-- SECCIÓN 1: ROLES -->
+    <section class="card manual-section" data-section="ROLES">
+      <h2>1. Perfiles Institucionales y Credenciales de Acceso</h2>
+      <p style="font-size: 0.9rem; color: var(--slate-600);">
+        El aplicativo cuenta con control de acceso basado en roles clínicos. Puede iniciar sesión con las siguientes cuentas o alternar entre ellas desde la barra superior:
+      </p>
+      <div class="grid-3">
+        <div class="role-box">
+          <h3>Enfermería (Diligenciamiento)</h3>
+          <span class="cred-pill">Usuario: enfermeria</span>
+          <span class="cred-pill">Clave: Enfermeria2026*</span>
+          <p style="font-size: 0.83rem; color: var(--slate-600);">
+            Diligencia y firma nuevos consentimientos y recibos de pertenencias, consulta el historial e imprime PDF. <strong>No puede anular ni borrar formatos.</strong>
+          </p>
+        </div>
+        <div class="role-box">
+          <h3>Consulta y Auditoría Médica</h3>
+          <span class="cred-pill">Usuario: consulta</span>
+          <span class="cred-pill">Clave: Consulta2026*</span>
+          <p style="font-size: 0.83rem; color: var(--slate-600);">
+            Perfil de <strong>solo lectura</strong> para auditores: búsqueda rápida por cédula, nombre o fecha, verificación de hash SHA-256 y descarga de PDF.
+          </p>
+        </div>
+        <div class="role-box">
+          <h3>Administrador (Calidad / Jurídica / TI)</h3>
+          <span class="cred-pill">Usuario: admin</span>
+          <span class="cred-pill">Clave: Admin2026*</span>
+          <p style="font-size: 0.83rem; color: var(--slate-600);">
+            Acceso total: anulación con justificación obligatoria (Res. 1995/1999), edición de textos de plantilla <code>FOR-ENF-HC-014</code>, bitácora y backups JSON.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: FLUJO PASO A PASO -->
+    <section class="card manual-section" data-section="FLUJO">
+      <h2>2. Flujo Paso a Paso para Diligenciar y Firmar un Formato</h2>
+      <div class="step-list">
+        <div class="step-item">
+          <strong>Paso 1 — Servicio e Identificación del Paciente:</strong> Seleccione la Sede/Servicio hospitalario, ingrese Nombre Completo, Tipo y Número de Documento, Edad y Diagnóstico.
+          <br /><em>Regla automática:</em> Si la edad es menor a 18 años o marca <strong>"Paciente con incapacidad para firmar"</strong>, el sistema exige automáticamente los datos y firma del <strong>Acudiente o Representante Legal</strong>.
+        </div>
+        <div class="step-item">
+          <strong>Paso 2 — Tres (3) Consentimientos Informados Independientes:</strong> Cada bloque tiene su decisión individual (<code>ACEPTO</code> / <code>NO ACEPTO</code>) y su propio lienzo de firma:
+          <ul style="margin-left: 1.25rem; margin-top: 0.35rem; font-size: 0.88rem;">
+            <li><strong>3.1. Ingreso a Hospitalización:</strong> Estancia, vigilancia continua y tratamiento.</li>
+            <li><strong>3.2. Procedimientos de Enfermería:</strong> Canalización venosa, muestras, medicamentos, curaciones, sondas y monitoreo.</li>
+            <li><strong>3.3. Presencia de Estudiantes en Prácticas:</strong> Convenio Docencia-Servicio (el paciente puede rechazarlo libremente sin afectar su atención).</li>
+          </ul>
+        </div>
+        <div class="step-item">
+          <strong>Paso 3 — Habeas Data y Sello Criptográfico SHA-256:</strong> Marque la autorización de Ley 1581 de 2012 y pulse <strong>"Firmar y Guardar Formato Clínico Inmutable"</strong>. El sistema calcula el hash SHA-256, guarda en <strong>Supabase PostgreSQL</strong> y abre el PDF oficial.
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: PERTENENCIAS -->
+    <section class="card manual-section" data-section="PERTENENCIAS">
+      <h2>3. Clasificación de Pertenencias (Aptas vs. No Aptas) y Acta de Devolución</h2>
+      <p style="font-size: 0.9rem; color: var(--slate-600);">
+        En la sección de inventario, cada objeto que ingresa con el paciente se clasifica como:
+      </p>
+      <div class="grid-3">
+        <div class="alert alert-emerald">
+          <strong>APTA (Permanece con el paciente):</strong><br />
+          Elementos autorizados en la habitación hospitalaria: útiles de aseo personal, pijama, pantuflas, gafas de lectura o prótesis en estuche.
+        </div>
+        <div class="alert alert-amber">
+          <strong>NO APTA (Devolver a familiar/acudiente):</strong><br />
+          Objetos de valor o restringidos (teléfonos celulares, cargadores, joyas, relojes, dinero en efectivo alto, computadores).
+        </div>
+      </div>
+      <div class="alert alert-red" style="margin-top: 1rem;">
+        <strong>Regla de Seguridad Hospitalaria:</strong> Si al menos un (1) artículo es clasificado como <code>NO_APTA</code>, el formulario habilita y exige obligatoriamente el <strong>Acta de Devolución de Pertenencias No Aptas</strong> con el nombre, documento, parentesco y firma de la persona que retira dichos elementos.
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: HISTORIAL, PDF Y ANULACIÓN -->
+    <section class="card manual-section" data-section="HISTORIAL">
+      <h2>4. Búsqueda Instantánea, Impresión PDF y Anulación Normativa</h2>
+      <p style="font-size: 0.9rem; color: var(--slate-600);">
+        Desde la pestaña <strong>"Historial y Búsqueda de Pacientes"</strong>:
+      </p>
+      <div class="step-list">
+        <div class="step-item">
+          <strong>Búsqueda en &lt; 1 segundo:</strong> Digite el número de cédula, nombre del paciente, acudiente o consecutivo (ej. <code>FOR-CLI-2026-0001</code>) y filtre por Sede o Estado (Vigentes / Anulados).
+        </div>
+        <div class="step-item">
+          <strong>Exportar / Imprimir PDF Oficial:</strong> Pulse <strong>"Ver / Imprimir PDF"</strong> para abrir el formato institucional <code>FOR-ENF-HC-014</code> listo para guardar en PDF tamaño Carta/A4.
+        </div>
+      </div>
+      <div class="alert alert-red">
+        <strong>Inmutabilidad Legal (Resolución 1995 de 1999):</strong><br />
+        Ningún formato firmado puede editarse ni eliminarse físicamente (protegido por <em>trigger</em> en PostgreSQL). Si existe un error de diligenciamiento, el usuario <strong>Administrador</strong> debe pulsar <strong>"Anular Formato"</strong>, registrar una justificación auditable de mínimo 15 caracteres y generar un nuevo consecutivo.
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: MODO OFFLINE Y SUPABASE -->
+    <section class="card manual-section" data-section="OFFLINE">
+      <h2>5. Operación Híbrida: Supabase Cloud + Modo Tablet Offline</h2>
+      <div class="grid-3">
+        <div class="alert alert-emerald">
+          <strong>En Línea (Sincronizado con Supabase):</strong><br />
+          Cuando la tablet o PC tiene conexión Wi-Fi/Red, cada formato firmado, anulación y auditoría se almacena inmediatamente en la base de datos central PostgreSQL en Supabase.
+        </div>
+        <div class="alert alert-amber">
+          <strong>Modo Offline Activo (Sin Cobertura):</strong><br />
+          Si falla el Wi-Fi en el servicio, el personal sigue diligenciando normalmente. Los formatos se guardan cifrados localmente como <code>Pendiente Sincronizar</code> y al volver la red se suben con un clic en <strong>"Sincronizar (N)"</strong>.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function filterSection(sectionKey, btnElement) {
+      document.querySelectorAll('.tab-btn').forEach((btn) => btn.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+
+      document.querySelectorAll('.manual-section').forEach((sec) => {
+        if (sectionKey === 'ALL' || sec.getAttribute('data-section') === sectionKey) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    }
+
+    function searchManual(query) {
+      const q = query.trim().toLowerCase();
+      document.querySelectorAll('.manual-section').forEach((sec) => {
+        const text = sec.innerText.toLowerCase();
+        if (!q || text.includes(q)) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

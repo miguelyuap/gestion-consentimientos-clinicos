@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {
+  BookOpen,
   ClipboardList,
   CloudOff,
   FilePlus2,
@@ -22,6 +23,7 @@ import type { ClinicalUser } from '@/modules/auth/types/auth.types';
 import { AdminPanel } from '@/modules/consents/components/AdminPanel';
 import { ConsentFormWizard } from '@/modules/consents/components/ConsentFormWizard';
 import { ConsentHistoryList } from '@/modules/consents/components/ConsentHistoryList';
+import { InteractiveUserManualModal } from '@/modules/consents/components/InteractiveUserManualModal';
 import { PrintableConsentPdf } from '@/modules/consents/components/PrintableConsentPdf';
 import {
   annulClinicalConsentForm,
@@ -59,6 +61,7 @@ export default function ClinicalConsentsPlatformPage() {
   );
   const [printingRecord, setPrintingRecord] =
     useState<ClinicalConsentFormRecord | null>(null);
+  const [isManualOpen, setIsManualOpen] = useState<boolean>(false);
   const [bannerMessage, setBannerMessage] = useState<string>('');
 
   const refreshData = () => {
@@ -229,6 +232,15 @@ export default function ClinicalConsentsPlatformPage() {
                 Administrador
               </button>
             </div>
+            <a
+              href="/manual-usuario.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 py-2 font-bold text-blue-700 hover:bg-blue-100"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              Abrir Manual de Usuario Interactivo (HTML)
+            </a>
           </div>
         </div>
       </div>
@@ -241,6 +253,11 @@ export default function ClinicalConsentsPlatformPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Modal de Manual de Usuario Interactivo */}
+      {isManualOpen && (
+        <InteractiveUserManualModal onClose={() => setIsManualOpen(false)} />
+      )}
+
       {/* Modal de Vista PDF Imprimible */}
       {printingRecord && (
         <PrintableConsentPdf
@@ -339,6 +356,16 @@ export default function ClinicalConsentsPlatformPage() {
                 </button>
               ))}
             </div>
+
+            <button
+              type="button"
+              onClick={() => setIsManualOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-blue-500/40 bg-blue-600/20 px-3 py-1.5 text-xs font-bold text-sky-200 transition hover:bg-blue-600 hover:text-white"
+              title="Abrir Manual de Usuario Interactivo (HTML)"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              Manual de Usuario
+            </button>
 
             <button
               type="button"
